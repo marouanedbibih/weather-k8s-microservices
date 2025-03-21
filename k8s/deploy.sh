@@ -9,4 +9,13 @@ kubectl apply -f mysql/init-job.yaml
 kubectl apply -f auth/deployment.yaml
 kubectl apply -f auth/service.yaml
 
-curl -X POST http://weatherapp-auth:8080/users -H "Content-Type: application/json" -d '{"username": "marouane", "password": "password"}'
+# Deploy Weather Service
+bash weather/secret.sh
+kubectl apply -f weather/deployment.yaml
+kubectl apply -f weather/service.yaml
+
+# Deploy Frontend
+bash frontend/certificate.sh
+kubectl apply -f frontend/deployment.yaml
+kubectl apply -f frontend/service.yaml
+kubectl apply -f frontend/ingress.yaml
